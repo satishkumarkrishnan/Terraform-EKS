@@ -76,7 +76,7 @@ resource "aws_eks_cluster" "tokyo_EKS" {
 
 resource "aws_iam_role" "tokyo_IAM_EKS_role" {
   name               = "tokyp-eks-policy"
-  assume_role_policy = data.aws_iam_policy_document.eks_assume_role_policy
+  assume_role_policy = data.aws_iam_policy_document.eks_assume_join_policy.json
 }
 
 #Resource for EKS IAM Role Policy 
