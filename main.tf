@@ -16,8 +16,10 @@ module "eks" {
 
 # TF code for EFS resource
 resource "aws_eks_cluster" "tokyo_EKS" {
-  name     = "Tokyo_EKS"
-  role_arn = aws_iam_role.tokyo_IAM_EKS_role.arn
+ # name     = "Tokyo_EKS"
+  role_arn                  = aws_iam_role.tokyo_IAM_EKS_role.arn
+  enabled_cluster_log_types = ["api", "audit"]
+  name                      = var.cluster_name
 
   vpc_config {
     subnet_ids = [module.eks.vpc_fe_subnet.id, module.eks.vpc_be_subnet.id]    
@@ -28,6 +30,7 @@ resource "aws_eks_cluster" "tokyo_EKS" {
   depends_on = [
    aws_iam_role_policy_attachment.example-AmazonEKSClusterPolicy,    
    aws_iam_role_policy_attachment.example-AmazonEKSVPCResourceController,
+   aws_cloudwatch_log_group.aws_cloudwatch_log_group.tokyo_cloud_watch
   ]
 }
 
@@ -68,4 +71,12 @@ resource "aws_iam_role_policy_attachment" "example-AmazonEKSClusterPolicy" {
 resource "aws_iam_role_policy_attachment" "example-AmazonEKSVPCResourceController" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSVPCResourceController"
   role       = aws_iam_role.tokyo_IAM_EKS_role.name
+}
+
+# To create cloudwatch log group
+resource "aws_cloudwatch_log_group" "tokyo_cloud_watch" {
+  # The log group name format is /aws/eks/<cluster-name>/cluster
+  # Reference: https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html
+  name              = "/aws/eks/${var.cluster_name}/cluster"
+  retention_in_days = 7
 }
