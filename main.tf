@@ -34,7 +34,7 @@ resource "aws_eks_cluster" "tokyo_EKS" {
 }
 
 # To create IAM role for EKS
-resource "aws_iam_role" "tokyo_IAM_EKS_role" {
+/*resource "aws_iam_role" "tokyo_IAM_EKS_role" {
   name = "tokyo_EKS_role"
 
   # Terraform's "jsonencode" function converts a
@@ -45,6 +45,7 @@ resource "aws_iam_role" "tokyo_IAM_EKS_role" {
     "Statement": [
         {
             "Effect": "Allow",
+             Action = "sts:AssumeRole"
             "Action": [
                 "eks:ListFargateProfiles",
                 "eks:DescribeNodegroup",
@@ -71,6 +72,11 @@ resource "aws_iam_role" "tokyo_IAM_EKS_role" {
   tags = {
     tag-key = "Tokyo_EKS_role"
   }
+}*/
+
+resource "aws_iam_role" "tokyo_IAM_EKS_role" {
+  name               = "tokyp-eks-policy"
+  assume_role_policy = data.aws_iam_policy_document.eks_assume_role_policy
 }
 
 #Resource for EKS IAM Role Policy 
