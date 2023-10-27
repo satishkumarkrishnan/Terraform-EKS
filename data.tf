@@ -14,7 +14,7 @@ data "aws_iam_policy_document" "eks_assume_role_policy" {
 }
 
 # Create the policy which allows other actions for the EKS instance
-data "aws_iam_policy_document" "eks_assume_role_policy" {
+data "aws_iam_policy_document" "eks_access_role_policy" {
   statement {
     actions = [
       "eks:ListFargateProfiles",
