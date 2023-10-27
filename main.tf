@@ -30,7 +30,7 @@ resource "aws_eks_cluster" "tokyo_EKS" {
   depends_on = [
    aws_iam_role_policy_attachment.example-AmazonEKSClusterPolicy,    
    aws_iam_role_policy_attachment.example-AmazonEKSVPCResourceController,
-   aws_cloudwatch_log_group.aws_cloudwatch_log_group
+   aws_cloudwatch_log_group.tokyo_cloud_watch
   ]
 }
 
