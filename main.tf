@@ -15,12 +15,12 @@ module "eks" {
 }
 
 # TF code for EFS resource
-resource "aws_eks_cluster" "tokyo_EKS" {
+/*resource "aws_eks_cluster" "tokyo_EKS" {
   name     = "Tokyo_EKS"
   role_arn = aws_iam_role.tokyo_IAM_EKS_role.arn
 
   vpc_config {
-    subnet_ids = [modulerds.eks.vpc_fe_subnet.id, module.eks.vpc_be_subnet.id]
+    subnet_ids = [module.eks.vpc_fe_subnet.id, module.eks.vpc_be_subnet.id]    
   }
 
   # Ensure that IAM Role permissions are created before and deleted after EKS Cluster handling.
@@ -68,4 +68,4 @@ resource "aws_iam_role_policy_attachment" "example-AmazonEKSClusterPolicy" {
 resource "aws_iam_role_policy_attachment" "example-AmazonEKSVPCResourceController" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSVPCResourceController"
   role       = aws_iam_role.tokyo_IAM_EKS_role.name
-}
+}*/
