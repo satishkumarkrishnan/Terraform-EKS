@@ -20,7 +20,6 @@ resource "aws_eks_cluster" "tokyo_EKS" {
   role_arn                  = aws_iam_role.tokyo_IAM_EKS_role.arn
   enabled_cluster_log_types = ["api", "audit"]
   name                      = var.cluster_name
-
   vpc_config {
     subnet_ids = [module.eks.vpc_fe_subnet.id, module.eks.vpc_be_subnet.id]    
   }
@@ -44,7 +43,19 @@ resource "aws_iam_role" "tokyo_IAM_EKS_role" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action = "sts:AssumeRole"
+        Action = [
+           "eks:ListFargateProfiles",
+           "eks:DescribeNodegroup",
+           "eks:ListNodegroups",
+           "eks:ListUpdates",
+           "eks:AccessKubernetesApi",
+           "eks:ListAddons",
+           "eks:DescribeCluster",
+           "eks:DescribeAddonVersions",
+           "eks:ListClusters",
+           "eks:ListIdentityProviderConfigs",
+           "iam:ListRoles"
+        ],        
         Effect = "Allow"
         Sid    = ""
         Principal = {
