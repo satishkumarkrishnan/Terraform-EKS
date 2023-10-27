@@ -39,29 +39,32 @@ resource "aws_iam_role" "tokyo_IAM_EKS_role" {
 
   # Terraform's "jsonencode" function converts a
   # Terraform expression result to valid JSON syntax.
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = [
-           "eks:ListFargateProfiles",
-           "eks:DescribeNodegroup",
-           "eks:ListNodegroups",
-           "eks:ListUpdates",
-           "eks:AccessKubernetesApi",
-           "eks:ListAddons",
-           "eks:DescribeCluster",
-           "eks:DescribeAddonVersions",
-           "eks:ListClusters",
-           "eks:ListIdentityProviderConfigs",
-           "iam:ListRoles"
-        ],        
-        Effect = "Allow"
-        Sid    = ""
-        Principal = {
-          Service = "eks.amazonaws.com"
+  assume_role_policy = jsonencode(
+          {
+        "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "eks:ListFargateProfiles",
+                "eks:DescribeNodegroup",
+                "eks:ListNodegroups",
+                "eks:ListUpdates",
+                "eks:AccessKubernetesApi",
+                "eks:ListAddons",
+                "eks:DescribeCluster",
+                "eks:DescribeAddonVersions",
+                "eks:ListClusters",
+                "eks:ListIdentityProviderConfigs",
+                "iam:ListRoles"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "ssm:GetParameter",
+            "Resource": "arn:aws:ssm:*:515149434592:parameter/*"
         }
-      },
     ]
   })
 
