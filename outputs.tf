@@ -1,6 +1,6 @@
 output "endpoint" {
   value = aws_eks_cluster.tokyo_EKS.endpoint
-  depends_on = [module.eks.name]
+  depends_on = [aws_eks_cluster.tokyo_EKS.name]
 }
 
 output "kubeconfig-certificate-authority-data" {
