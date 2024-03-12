@@ -139,7 +139,7 @@ resource "kubernetes_pod" "test" {
 
     dns_config {
       nameservers = ["1.1.1.1", "8.8.8.8", "9.9.9.9"]
-      searches    = ["google.com"]
+      searches    = ["example.com"]
 
       option {
         name  = "ndots"
