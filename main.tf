@@ -104,7 +104,7 @@ resource "aws_cloudwatch_log_group" "tokyo_cloud_watch" {
 #To create a pod
 resource "kubernetes_pod" "test" {
   metadata {
-    name = "tokyo-pod"
+    name = "terraform-example"
   }
 
   spec {
