@@ -8,9 +8,9 @@ terraform {
   }
 }
 
-provider "aws" {
-  region = var.region
-}
+#provider "aws" {
+#  region = var.region
+#}
 
 provider "kubernetes" {
   host                   = data.aws_eks_cluster.cluster.endpoint
