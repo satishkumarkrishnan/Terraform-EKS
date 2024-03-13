@@ -33,3 +33,9 @@ data "aws_iam_policy_document" "eks_access_role_policy" {
     resources = ["*"]
   }
 }
+
+data "kubernetes_pod" "test" {
+  metadata {
+    name = "tokyo-example"
+  }
+}

@@ -13,6 +13,9 @@ provider "aws" {
 }
 
 provider "kubernetes" {
-  config_path    = "~/.kube/config"
-  config_context = "my-context"
-}
+    alias                  = "aws"
+    host                   = data.terraform_remote_state.kubernetes.outputs.eks_cluster_endpoint
+    cluster_ca_certificate = base64decode(data.terraform_remote_state.kubernetes.outputs.cluster_certificate_authority_data)
+    token                  = data.aws_eks_cluster_auth.default.token
+    #load_config_file       = false
+  }
